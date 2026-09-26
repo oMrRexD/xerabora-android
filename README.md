@@ -60,7 +60,8 @@ behaves like OPL 1.2.0 with extra items in the menus.
   two we have tested, and they are the ones to play from. A game with an
   achievement set does not run from a network share yet; a game without
   one does. The internal HDD is untested.
-- A PC on the same local network, Windows, Linux or macOS.
+- A PC on the same local network, Windows, Linux or macOS, or an
+  Android phone on the same Wi-Fi (the [Android app](android/README.md)).
 - A [RetroAchievements](https://retroachievements.org) account.
 
 ## Setup
@@ -75,7 +76,8 @@ shows nothing for it.
    [releases](../../releases): `xerabora.exe` (Windows),
    `xerabora-linux-x86_64` (Linux) or `xerabora-macos` (macOS, Intel and
    Apple Silicon in one file). On Linux and macOS, `chmod +x` the file
-   after downloading.
+   after downloading. On an Android phone, install `xerabora-android.apk`
+   instead; the steps below are the same in the app.
 2. Put `OPL-RA.ELF` where you keep your OPL and launch it instead of OPL.
 3. The RA menu items report their result as an on-screen notice whatever
    OPL's **Notifications** setting says. Turn that setting on if you also
@@ -212,7 +214,9 @@ in the footer.
   your Wi-Fi; type the address it shows into a phone or tablet and add
   the page to the home screen. Up to four pages watch at once. Other
   devices see everything; the login, the key, the switches and QUIT
-  work only from the PC that runs the client.
+  work only from the PC that runs the client. To run the client itself
+  on a phone, with no PC at all, there is the
+  [Android app](android/README.md).
 - **Stream-ready.** OBS takes the page as a browser source; `--obs DIR`
   writes text labels and a `data.json` for everything else. `#tab=live`
   opens a window straight on a tab.
@@ -292,6 +296,12 @@ architectures, against the libcurl the system ships. The page lives in `client/u
 editing it, `python3 tools/embed-page.py` puts it back into the binary,
 and `--ui-file client/ui/index.html` serves it from disk meanwhile.
 
+**Android app** (`android/`) builds the same client sources with the
+Android NDK into an APK: `./gradlew assembleDebug` in `android/`, with
+JDK 21, the Android SDK and the NDK installed. How it hooks into the
+client, and how releases are signed, is in
+[`android/README.md`](android/README.md).
+
 Both the OPL fork and rcheevos are git submodules. Clone with
 `--recurse-submodules`, or run `git submodule update --init --recursive`
 after cloning. Building the client needs only `third_party/rcheevos`; the
@@ -302,6 +312,7 @@ after cloning. Building the client needs only `third_party/rcheevos`; the
 | path | contents |
 |---|---|
 | `client/` | the PC client: the RetroAchievements client, its page (`ui/`), the protocol side |
+| `android/` | the same client as an Android app: backends for `http.h` and `sound.h`, the service and the notifications ([`android/README.md`](android/README.md)) |
 | `protocol/` | the wire protocol &mdash; [`PROTOCOL.md`](protocol/PROTOCOL.md) plus the shared `ra_snap.h` / `ra_watch.h` |
 | `opl/` | submodule &rarr; the [OPL+RA fork](https://github.com/hacan359/Open-PS2-Loader/tree/ra), the PS2 agent. RA additions: `src/ra*.c`, `ee_core/src/ra.c`, `ee_core/src/ra_overlay.c`, `modules/network/raudp`, `modules/network/ps2ips-ra`, small changes in `SMSTCPIP` and `smap-ingame` |
 | `third_party/rcheevos` | submodule, rcheevos, unmodified |
