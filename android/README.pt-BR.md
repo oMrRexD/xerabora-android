@@ -2,6 +2,11 @@
 
 *English: [README.md](README.md).*
 
+> **Procurando a versão de PC?** Ela está no repositório original do
+> [hacan359](https://github.com/hacan359), criador do xeRAbora:
+> **[hacan359/xerabora](https://github.com/hacan359/xerabora)**. Esta pasta só empacota o cliente dele
+> para Android.
+
 O cliente do xeRAbora rodando inteiro no celular, sem PC: o PS2 com o OPL-RA (ou o RiptOPL) acha o celular
 na rede Wi-Fi, e o celular conversa com o RetroAchievements, desbloqueia as conquistas e mostra a mesma página
 do cliente de PC.
@@ -84,3 +89,10 @@ O `xerabora.log` completo fica em `files/.config/xerabora/` no armazenamento do 
 Os secrets do repositório usados pelo CI: `ANDROID_KEYSTORE_B64`, `ANDROID_KEYSTORE_PASSWORD`,
 `ANDROID_KEY_ALIAS` e `ANDROID_KEY_PASSWORD` (a assinatura; sem eles não sai release) e `SYNC_TOKEN`
 (o merge diário).
+
+## Créditos
+
+O xeRAbora é criado e mantido pelo [hacan359](https://github.com/hacan359): o cliente, a página, o
+protocolo e o agente do PS2. Repositório original: [hacan359/xerabora](https://github.com/hacan359/xerabora)
+(MIT). [rcheevos](https://github.com/RetroAchievements/rcheevos) do RetroAchievements (MIT). Port para
+Android por MrRexD.

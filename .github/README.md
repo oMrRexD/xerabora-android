@@ -8,6 +8,10 @@
 PlayStation 2, running entirely on an Android phone. No PC: the PS2 finds the phone on the Wi-Fi,
 and the phone talks to RetroAchievements, unlocks the achievements and shows the client's own page.
 
+> **Looking for the PC version?** xeRAbora for Windows, Linux and macOS, and the OPL-RA loader for
+> the PS2, are in the original repository by [hacan359](https://github.com/hacan359):
+> **[hacan359/xerabora](https://github.com/hacan359/xerabora)**.
+
 *Português: [android/README.pt-BR.md](../android/README.pt-BR.md).*
 
 ## Install
@@ -43,5 +47,10 @@ when there is something new. How the port works, file by file, is in
 
 ## Credits
 
-xeRAbora by [hacan359](https://github.com/hacan359) (MIT). [rcheevos](https://github.com/RetroAchievements/rcheevos)
-by RetroAchievements (MIT). Android port by MrRexD.
+- **xeRAbora is created and maintained by [hacan359](https://github.com/hacan359)**: the client, its
+  page, the wire protocol and the PS2 agent (OPL-RA). Achievements on real PS2 hardware are their work;
+  this fork only packages their client for Android. Original repository:
+  [hacan359/xerabora](https://github.com/hacan359/xerabora), MIT license.
+- [rcheevos](https://github.com/RetroAchievements/rcheevos) by RetroAchievements, MIT license.
+- [Open PS2 Loader](https://github.com/ps2homebrew/Open-PS2-Loader), which OPL-RA is built on.
+- Android port by MrRexD ([oMrRexD](https://github.com/oMrRexD) on GitHub).

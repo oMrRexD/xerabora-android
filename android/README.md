@@ -2,6 +2,11 @@
 
 *Português: [README.pt-BR.md](README.pt-BR.md).*
 
+> **Looking for the PC version?** It is in the original repository by
+> [hacan359](https://github.com/hacan359), who created xeRAbora:
+> **[hacan359/xerabora](https://github.com/hacan359/xerabora)**. This folder only packages their
+> client for Android.
+
 The xeRAbora client running entirely on the phone, no PC: the PS2 running OPL-RA (or a loader that
 carries the same agent) finds the phone on the Wi-Fi, and the phone talks to RetroAchievements, unlocks
 the achievements and shows the same page as the PC client.
@@ -83,3 +88,10 @@ The APK lands in `android/app/build/outputs/apk/debug/`. The log: `adb logcat -s
 Repository secrets the CI uses: `ANDROID_KEYSTORE_B64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`
 and `ANDROID_KEY_PASSWORD` (signing; without them no release is published) and `SYNC_TOKEN` (the daily
 merge).
+
+## Credits
+
+xeRAbora is created and maintained by [hacan359](https://github.com/hacan359): the client, its page, the
+protocol and the PS2 agent. Original repository: [hacan359/xerabora](https://github.com/hacan359/xerabora)
+(MIT). [rcheevos](https://github.com/RetroAchievements/rcheevos) by RetroAchievements (MIT). Android port
+by MrRexD.
