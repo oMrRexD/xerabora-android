@@ -34,9 +34,6 @@
     <string name="mastery_title">¡Juego completado con maestría!</string>
     <string name="mastery_text">%1$s: los %2$d logros</string>
 
-    <string name="quit_title">¿Salir de xeRAbora?</string>
-    <string name="quit_text">Salir apaga el cliente: la PS2 deja de ganar logros. Minimizar lo deja funcionando en segundo plano.</string>
-    <string name="minimize">Minimizar</string>
 
     <string name="battery_title">Seguir funcionando con la pantalla apagada</string>
     <string name="battery_text">Android puede cerrar xeRAbora en medio de una partida para ahorrar batería. ¿Permitir que funcione en segundo plano?</string>
@@ -64,4 +61,8 @@
         <item quantity="many">%d logros desbloqueados</item>
         <item quantity="other">%d logros desbloqueados</item>
     </plurals>
+    <string name="menu_minimize">Minimizar (sigue funcionando)</string>
+    <string name="menu_quit">Salir (apaga el cliente)</string>
+    <string name="menu_about">Acerca de y licencias</string>
+    <string name="about_body">xeRAbora para Android %1$s\n\nxeRAbora es creado y mantenido por hacan359:\nhttps://github.com/hacan359/xerabora\n\nPort para Android por MrRexD:\nhttps://github.com/oMrRexD/xerabora-android\n\nrcheevos, de RetroAchievements:\nhttps://github.com/RetroAchievements/rcheevos</string>
 </resources>

@@ -32,9 +32,6 @@
     <string name="mastery_title">Jogo masterizado!</string>
     <string name="mastery_text">%1$s: todas as %2$d conquistas</string>
 
-    <string name="quit_title">Sair do xeRAbora?</string>
-    <string name="quit_text">Sair desliga o cliente: o PS2 para de ganhar conquistas. Minimizar deixa rodando em segundo plano.</string>
-    <string name="minimize">Minimizar</string>
 
     <string name="battery_title">Continuar com a tela apagada</string>
     <string name="battery_text">O Android pode fechar o xeRAbora no meio do jogo pra economizar bateria. Liberar pra rodar em segundo plano?</string>
@@ -62,4 +59,8 @@
         <item quantity="many">%d conquistas desbloqueadas</item>
         <item quantity="other">%d conquistas desbloqueadas</item>
     </plurals>
+    <string name="menu_minimize">Minimizar (continua rodando)</string>
+    <string name="menu_quit">Sair (desliga o cliente)</string>
+    <string name="menu_about">Sobre e licenças</string>
+    <string name="about_body">xeRAbora para Android %1$s\n\nO xeRAbora é criado e mantido pelo hacan359:\nhttps://github.com/hacan359/xerabora\n\nPort para Android por MrRexD:\nhttps://github.com/oMrRexD/xerabora-android\n\nrcheevos, do RetroAchievements:\nhttps://github.com/RetroAchievements/rcheevos</string>
 </resources>

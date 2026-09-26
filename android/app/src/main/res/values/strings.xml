@@ -36,9 +36,6 @@
     <string name="mastery_text">%1$s: all %2$d achievements</string>
 
     <!-- Quitting -->
-    <string name="quit_title">Quit xeRAbora?</string>
-    <string name="quit_text">Quit turns the client off: the PS2 stops earning achievements. Minimize keeps it running in the background.</string>
-    <string name="minimize">Minimize</string>
 
     <string name="battery_title">Keep running with the screen off</string>
     <string name="battery_text">Android may stop xeRAbora in the middle of a game to save battery. Let it run in the background?</string>
@@ -67,4 +64,8 @@
         <item quantity="many">%d achievements unlocked</item>
         <item quantity="other">%d achievements unlocked</item>
     </plurals>
+    <string name="menu_minimize">Minimize (keeps running)</string>
+    <string name="menu_quit">Quit (turns the client off)</string>
+    <string name="menu_about">About and licenses</string>
+    <string name="about_body">xeRAbora for Android %1$s\n\nxeRAbora is created and maintained by hacan359:\nhttps://github.com/hacan359/xerabora\n\nAndroid port by MrRexD:\nhttps://github.com/oMrRexD/xerabora-android\n\nrcheevos by RetroAchievements:\nhttps://github.com/RetroAchievements/rcheevos</string>
 </resources>

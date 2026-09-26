@@ -78,3 +78,45 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
+
+// The MIT licenses of what the APK carries, as assets the About screen
+// shows: MIT asks for the notice to travel with every copy. Taken from the
+// repository at build time, so a change upstream reaches the app.
+abstract class CollectLicenses : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val xerabora: RegularFileProperty
+
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val rcheevos: RegularFileProperty
+
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val port: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun collect() {
+        val dir = outputDir.get().asFile.resolve("licenses")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        xerabora.get().asFile.copyTo(dir.resolve("xerabora.txt"))
+        rcheevos.get().asFile.copyTo(dir.resolve("rcheevos.txt"))
+        port.get().asFile.copyTo(dir.resolve("android.txt"))
+    }
+}
+
+val collectLicenses = tasks.register<CollectLicenses>("collectLicenses") {
+    xerabora.set(File(repoRoot, "client/LICENSE"))
+    rcheevos.set(File(repoRoot, "third_party/rcheevos/LICENSE"))
+    port.set(File(repoRoot, "android/LICENSE"))
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(collectLicenses, CollectLicenses::outputDir)
+    }
+}

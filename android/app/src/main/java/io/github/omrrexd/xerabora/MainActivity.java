@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.text.util.Linkify;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.webkit.WebResourceError;
@@ -23,10 +24,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -142,13 +146,67 @@ public final class MainActivity extends Activity {
             web.goBack();
             return;
         }
+        CharSequence[] items = {
+                getString(R.string.menu_minimize),
+                getString(R.string.menu_quit),
+                getString(R.string.share_log),
+                getString(R.string.menu_about),
+        };
         new AlertDialog.Builder(this)
-                .setTitle(R.string.quit_title)
-                .setMessage(R.string.quit_text)
-                .setPositiveButton(R.string.action_quit, (d, w) -> quitAll())
-                .setNegativeButton(R.string.minimize, (d, w) -> moveTaskToBack(true))
-                .setNeutralButton(R.string.share_log, (d, w) -> shareLog())
+                .setTitle(R.string.app_name)
+                .setItems(items, (d, which) -> {
+                    switch (which) {
+                        case 0:
+                            moveTaskToBack(true);
+                            break;
+                        case 1:
+                            quitAll();
+                            break;
+                        case 2:
+                            shareLog();
+                            break;
+                        default:
+                            showAbout();
+                            break;
+                    }
+                })
                 .show();
+    }
+
+    /* Who made what, and the licenses the APK carries (assets/licenses,
+       collected from the repository by the build). */
+    private void showAbout() {
+        StringBuilder text = new StringBuilder(getString(R.string.about_body, BuildConfig.VERSION_NAME));
+        String[][] licenses = {
+                {"xeRAbora", "xerabora.txt"},
+                {"rcheevos", "rcheevos.txt"},
+                {"xeRAbora for Android", "android.txt"},
+        };
+        for (String[] license : licenses) {
+            text.append("\n\n— ").append(license[0]).append(" —\n\n").append(asset("licenses/" + license[1]));
+        }
+
+        TextView view = new TextView(this);
+        int pad = (int) (20 * getResources().getDisplayMetrics().density);
+        view.setPadding(pad, pad / 2, pad, pad / 2);
+        view.setText(text);
+        view.setTextSize(13);
+        Linkify.addLinks(view, Linkify.WEB_URLS);
+        ScrollView scroll = new ScrollView(this);
+        scroll.addView(view);
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.menu_about)
+                .setView(scroll)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    private String asset(String path) {
+        try (InputStream in = getAssets().open(path)) {
+            return new String(HttpBridge.readAll(in), StandardCharsets.UTF_8).trim();
+        } catch (IOException e) {
+            return e.toString();
+        }
     }
 
     /* The end of the client's log, as text to any app that takes it: what
