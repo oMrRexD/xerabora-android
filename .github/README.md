@@ -54,3 +54,9 @@ when there is something new. How the port works, file by file, is in
 - [rcheevos](https://github.com/RetroAchievements/rcheevos) by RetroAchievements, MIT license.
 - [Open PS2 Loader](https://github.com/ps2homebrew/Open-PS2-Loader), which OPL-RA is built on.
 - Android port by MrRexD ([oMrRexD](https://github.com/oMrRexD) on GitHub).
+
+## License
+
+The Android port ([`android/`](../android)) is released under the [MIT license](../android/LICENSE), like
+the xeRAbora client ([`client/LICENSE`](../client/LICENSE)). rcheevos is MIT as well. The app carries all
+three license texts and shows them under **About and licenses** (the back button's menu).

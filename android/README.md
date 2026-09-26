@@ -26,8 +26,9 @@ the achievements and shows the same page as the PC client.
 The status notification shows what the console is doing: idle, found, the running game with its icon,
 achievements, points and session time. Every unlock gets a notification of its own, and the link test,
 "check game support" and a game starting show up as pop-ups. **Quit** in the notification, or
-**QUIT** on the page, ends the client. The back button asks: **Minimize** keeps it running, **Quit** turns
-it off, and **Send log** hands the end of `xerabora.log` to any app (for a bug report without a PC).
+**QUIT** on the page, ends the client. The back button opens a menu: **Minimize** keeps it running,
+**Quit** turns it off, **About and licenses** shows the credits, and **Send log** hands the end of
+`xerabora.log` to any app (for a bug report without a PC).
 
 With the screen on during *test PC connection* and while the game starts, it works on any phone. The
 console finds the client by broadcast, and the app holds a *multicast lock* to receive it with the
@@ -95,3 +96,6 @@ xeRAbora is created and maintained by [hacan359](https://github.com/hacan359): t
 protocol and the PS2 agent. Original repository: [hacan359/xerabora](https://github.com/hacan359/xerabora)
 (MIT). [rcheevos](https://github.com/RetroAchievements/rcheevos) by RetroAchievements (MIT). Android port
 by MrRexD.
+
+The port is released under the [MIT license](LICENSE), like the client. The app shows every license it
+carries under **About and licenses**, in the back button's menu.

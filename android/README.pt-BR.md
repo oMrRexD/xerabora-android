@@ -26,8 +26,9 @@ do cliente de PC.
 A notificação fixa mostra o que o console está fazendo: inativo, encontrado, o jogo aberto com ícone,
 conquistas, pontos e tempo de sessão. Cada conquista vira uma notificação própria, e o teste de conexão, o
 "check game support" e a abertura de um jogo aparecem como pop-up. **Sair** na notificação, ou **SAIR/QUIT**
-na página, encerra. O botão voltar pergunta: **Minimizar** deixa rodando, **Sair** desliga, e **Enviar log**
-manda o fim do `xerabora.log` pra qualquer app (útil pra relatar problema sem PC).
+na página, encerra. O botão voltar abre um menu: **Minimizar** deixa rodando, **Sair** desliga,
+**Sobre e licenças** mostra os créditos, e **Enviar log** manda o fim do `xerabora.log` pra qualquer app
+(útil pra relatar problema sem PC).
 
 Com a tela ligada na hora do *test PC connection* e ao abrir o jogo, tudo funciona em qualquer celular.
 A descoberta é por broadcast, e o app segura um *multicast lock* pra recebê-lo com a tela apagada, mas
@@ -96,3 +97,6 @@ O xeRAbora é criado e mantido pelo [hacan359](https://github.com/hacan359): o c
 protocolo e o agente do PS2. Repositório original: [hacan359/xerabora](https://github.com/hacan359/xerabora)
 (MIT). [rcheevos](https://github.com/RetroAchievements/rcheevos) do RetroAchievements (MIT). Port para
 Android por MrRexD.
+
+O port é distribuído sob a [licença MIT](LICENSE), como o cliente. O app mostra todas as licenças que
+carrega em **Sobre e licenças**, no menu do botão voltar.
