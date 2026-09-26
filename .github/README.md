@@ -8,7 +8,7 @@
 PlayStation 2, running entirely on an Android phone. No PC: the PS2 finds the phone on the Wi-Fi,
 and the phone talks to RetroAchievements, unlocks the achievements and shows the client's own page.
 
-*Português: [android/README.md](../android/README.md).*
+*Português: [android/README.pt-BR.md](../android/README.pt-BR.md).*
 
 ## Install
 
