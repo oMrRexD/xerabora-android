@@ -1,0 +1,42 @@
+# Merges hacan359/xerabora into this fork once a day. The Android files
+# are all new files, so the merge does not conflict; the push then runs
+# android.yml, which publishes the new APK.
+#
+# Needs the SYNC_TOKEN secret: a fine-grained token for this repository
+# with Contents and Workflows read/write. The default token cannot push a
+# merge that touches .github/workflows, and upstream edits build.yml.
+name: sync upstream
+
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-upstream
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SYNC_TOKEN }}
+
+      - name: Merge upstream main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/hacan359/xerabora.git
+          git fetch --no-tags upstream main
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo "Nothing new upstream."
+            exit 0
+          fi
+          git log --oneline HEAD..upstream/main
+          git merge --no-edit upstream/main
+          git push origin HEAD:main

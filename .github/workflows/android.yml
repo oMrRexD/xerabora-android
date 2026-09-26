@@ -1,0 +1,90 @@
+# The Android app (android/). Every push to main that changes the build
+# number publishes a release with the APK, which the app's updater finds.
+name: android
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-${{ github.ref }}
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    env:
+      KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The versionCode is the commit count.
+          fetch-depth: 0
+
+      # Only rcheevos: the opl submodule is the console loader. Not shallow:
+      # the pinned commit is not the tip of rcheevos' branch.
+      - name: rcheevos
+        run: git submodule update --init third_party/rcheevos
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: NDK and CMake
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;28.2.13676358" "cmake;3.22.1" > /dev/null
+
+      - name: Keystore
+        if: env.KEYSTORE_B64 != ''
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          echo "XERABORA_KEYSTORE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      - name: Build
+        working-directory: android
+        env:
+          XERABORA_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          XERABORA_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          XERABORA_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          ./gradlew assembleRelease --console=plain
+          apk=$(ls app/build/outputs/apk/release/*.apk | head -1)
+          version=$(sed -n 's/^#define XERABORA_VERSION "\(.*\)"$/\1/p' ../client/src/version.h)
+          build=$(git rev-list --count HEAD)
+          name="xerabora-$version-android.$build.apk"
+          cp "$apk" "$RUNNER_TEMP/$name"
+          echo "APK=$RUNNER_TEMP/$name" >> "$GITHUB_ENV"
+          echo "TAG=android-$version-r$build" >> "$GITHUB_ENV"
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+          echo "BUILD=$build" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xerabora-android
+          path: ${{ env.APK }}
+
+      - name: Release
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && env.KEYSTORE_B64 != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "$TAG already released"
+            exit 0
+          fi
+          # The last commit outside the Android files is the upstream state
+          # this build carries.
+          up=$(git log -1 --format='%h %s' -- . ':!android' ':!.github/workflows/android.yml' ':!.github/workflows/sync-upstream.yml' ':!.github/README.md')
+          {
+            echo "xeRAbora $VERSION for Android, build $BUILD."
+            echo
+            echo "Upstream: hacan359/xerabora@$up"
+            echo
+            echo "Install the APK over the previous one; the app also offers this update by itself."
+          } > "$RUNNER_TEMP/notes.md"
+          gh release create "$TAG" "$APK" --target "$GITHUB_SHA" --latest \
+            --title "xeRAbora $VERSION for Android (r$BUILD)" --notes-file "$RUNNER_TEMP/notes.md"
