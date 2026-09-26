@@ -25,7 +25,7 @@ jobs:
     env:
       KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # The versionCode is the commit count.
           fetch-depth: 0
@@ -35,7 +35,7 @@ jobs:
       - name: rcheevos
         run: git submodule update --init third_party/rcheevos
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
@@ -67,7 +67,7 @@ jobs:
           echo "VERSION=$version" >> "$GITHUB_ENV"
           echo "BUILD=$build" >> "$GITHUB_ENV"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: xerabora-android
           path: ${{ env.APK }}
